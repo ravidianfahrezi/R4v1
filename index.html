@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p class="namaku">universitas trunojoyo students</p>
+    <img class="angkatan" width="100%" src="foangkatan.jpeg" alt="">
+    <P class="nnim"> RAVI DIAN FAHREZI </P>
+    <p class="nim">240411100056</p>
+    <img class="fotoformal" width="25%" src="ravipp.jpeg" alt="">
+    <p class="biodata">
+        Hi, perkenalkan nama saya Ravi Dian Fahrezi,
+        saya merupakan seorang mahasiswa baru di Universitas Trunojoyo Madura, 
+        dengan nomor induk mahasiswa 240411100056
+        saya lahir di Bangkalan Madura pada taggal 04 juni 2005,
+        Saya tinggal di Bangkalan dan memutuskan untuk pp (pulang pergi) dari bangkalan ke telang
+        untuk berkuliah
+    </p>
+    <div id="studentList"></div>
+<script>
+    // Fungsi untuk meng-generate list mahasiswa dari JSON
+    function generateStudentList(data) {
+        const studentList = document.getElementById('studentList');
+        data.forEach(student => {
+            const studentDiv = document.createElement('div');
+            studentDiv.innerHTML = `<div class="friend">
+        <div class="f-foto">
+            <img class="fphoto" src="${student.fotoselfie}" alt="">
+        </div>
+        <div class="bio">
+            <table class="tb-data">
+                <tr>
+                    <td>Nama</td>
+                    <td>: ${student.nama}</td>
+                </tr>
+                <tr>
+                    <td>Nim</td>
+                    <td>: ${student.nim}</td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>: ${student.alamat}</td>
+                </tr>
+                <tr>
+                    <td>TTL</td>
+                    <td>: ${student.ttl}</td>
+                </tr>
+                <tr>
+                    <td>Telepon</td>
+                    <td>: ${student.no}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+            
+           `;
+
+            studentList.appendChild(studentDiv);
+        });
+    }
+
+    // Mengambil file JSON menggunakan fetch API
+    fetch('data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => generateStudentList(data))
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+</script>
+</body>
+</html>
